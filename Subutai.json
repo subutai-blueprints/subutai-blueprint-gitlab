@@ -3,7 +3,7 @@
     "description": "GitLab",
     "version": "1.0.0",
     "author": "https://github.com/marcoarthur",
-    "ssh-key": "lth", 
+    "ssh-key": "mprado", 
     "containers": [
         {
             "hostname": "${webContainerName}",
