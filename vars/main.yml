@@ -1,1 +1,2 @@
 gitlab_external_url: "{{ domain_name }}"
+gitlab_redirect_http_to_https: "false"
