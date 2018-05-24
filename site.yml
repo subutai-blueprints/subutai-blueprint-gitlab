@@ -39,6 +39,9 @@
 
         - name: Install GitLab CE
           shell: apt-get -y --allow-unauthenticated install gitlab-ee
+          ignore_errors: yes
           environment:
               EXTERNAL_URL: "{{ domain_name }}"
 
+        - name: Run GitLab Reconfigure
+          command: gitlab-ctl reconfigure
