@@ -21,6 +21,6 @@
 - hosts: gl
   remote_user: root
   vars:
-      gitlab_external_url: "{{ domain_name }}"
+      gitlab_external_url: "http://{{ domain_name }}"
   roles:
           - { role: geerlingguy.gitlab }
