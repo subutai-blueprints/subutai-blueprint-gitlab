@@ -20,7 +20,7 @@
 
 - hosts: gl
   remote_user: root
-  vars_files:
-          - vars/main.yml
+  vars:
+      gitlab_external_url: "${{ domain_name }}"
   roles:
           - { role: geerlingguy.gitlab }
