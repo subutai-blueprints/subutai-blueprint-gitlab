@@ -48,7 +48,9 @@
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
-  failed_when: false
+  retries: 2
+  deltay: 2
+    #  failed_when: false
 
 - name: Create GitLab SSL configuration folder.
   file:
