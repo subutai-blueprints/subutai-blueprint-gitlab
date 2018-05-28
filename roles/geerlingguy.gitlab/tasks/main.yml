@@ -44,13 +44,15 @@
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
+# tries more than once to check stderr is empty
 - name: Reconfigure GitLab (first run).
+  register: result
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
-  retries: 2
-  deltay: 2
-    #  failed_when: false
+  until: result.stderr == ""
+  retries: 3
+  delay: 2
 
 - name: Create GitLab SSL configuration folder.
   file:
