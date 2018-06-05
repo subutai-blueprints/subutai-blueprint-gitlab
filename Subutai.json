@@ -33,7 +33,24 @@
             {
                 "key": "domain_name",
                 "value": "${domainName}"
-            }        ],
+            },
+            {
+                "key": "smtp_server",
+                "value": "${emailServer}"
+            },
+            {
+                "key": "smtp_port",
+                "value": "${emailServerPort}"
+            },
+            {
+                "key": "smtp_user",
+                "value": "${emailUser}"
+            },
+            {
+                "key": "smtp_password",
+                "value": "${emailPasswd}"
+            }
+        ],
         "groups": [
             {
                 "name": "gl",
@@ -67,6 +84,30 @@
             "type": "enum",
             "default": "MEDIUM",
             "validation": "MEDIUM,LARGE,HUGE"
+        },
+        "emailServer": {
+            "description": "SMTP mail server",
+            "type": "string",
+            "default": "smtp.server",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "emailServerPort": {
+            "description": "SMTP mail port",
+            "type": "number",
+            "default": "465",
+            "validation": "[0-9]+"
+        },
+        "emailUser": {
+            "description": "SMTP mail user",
+            "type": "string",
+            "default": "smtp user",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "emailPasswd": {
+            "description": "SMTP mail password",
+            "type": "string",
+            "default": "topsecret",
+            "validation": "[a-zA-Z0-9]+"
         }
     }
 }
