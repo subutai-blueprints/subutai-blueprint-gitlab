@@ -101,13 +101,13 @@
             "description": "SMTP mail user",
             "type": "string",
             "default": "smtp user",
-            "validation": "[a-zA-Z0-9]+"
+            "validation": ".*"
         },
         "emailPasswd": {
             "description": "SMTP mail password",
             "type": "string",
             "default": "topsecret",
-            "validation": "[a-zA-Z0-9]+"
+            "validation": ".*"
         }
     }
 }
