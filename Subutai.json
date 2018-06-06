@@ -89,7 +89,7 @@
             "description": "SMTP mail server",
             "type": "string",
             "default": "smtp.server",
-            "validation": ".*"
+            "validation": "[a-zA-Z0-9]+"
         },
         "emailServerPort": {
             "description": "SMTP mail port",
