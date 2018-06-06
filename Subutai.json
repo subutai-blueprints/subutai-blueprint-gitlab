@@ -49,10 +49,6 @@
             {
                 "key": "smtp_password",
                 "value": "${emailPasswd}"
-            },
-            {
-                "key": "smtp_domain_name",
-                "value": "${smtpDomainName}"
             }
         ],
         "groups": [
@@ -72,7 +68,7 @@
             "validation": "[a-zA-Z0-9]+"
         },
         "domainName": {
-            "description": "Enter the gitlab's domain name",
+            "description": "Enter the application domain name",
             "type": "domain",
             "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
@@ -90,7 +86,7 @@
             "validation": "MEDIUM,LARGE,HUGE"
         },
         "emailServer": {
-            "description": "SMTP mail server, e.g., smtp.gmail.com",
+            "description": "SMTP mail server",
             "type": "string",
             "default": "smtp.server",
             "validation": ".*"
@@ -102,7 +98,7 @@
             "validation": "[0-9]+"
         },
         "emailUser": {
-            "description": "SMTP mail user, e.g., bob",
+            "description": "SMTP mail user",
             "type": "string",
             "default": "smtp user",
             "validation": ".*"
@@ -111,12 +107,6 @@
             "description": "SMTP mail password",
             "type": "string",
             "default": "topsecret",
-            "validation": ".*"
-        },
-        "smtpDomainName": {
-            "description": "SMTP domain name, e.g., gmail.com",
-            "type": "string",
-            "default": "gmail.com",
             "validation": ".*"
         }
     }
