@@ -1,9 +1,9 @@
 {
     "name": "${environmentName}",
     "description": "GitLab",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "https://github.com/marcoarthur",
-    "ssh-key": "mprado", 
+    "ssh-key": "lth", 
     "containers": [
         {
             "hostname": "${webContainerName}",
@@ -27,7 +27,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/subutai-blueprints/subutai-blueprint-gitlab/archive/master.zip",
+        "source-url": "https://github.com/lbthomsen/subutai-blueprint-gitlab/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             {
