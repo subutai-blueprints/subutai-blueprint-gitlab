@@ -3,25 +3,22 @@
   remote_user: root
   tasks: 
 
-    - name: Update
-      raw: apt-get -y --allow-unauthenticated update || true
+    - name: Disable dpkg fsync
+      shell: echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/unsafe-io
+      args: 
+        creates: /etc/dpkg/dpkg.cfg.d/unsafe-io
 
-    - name: Ensure python is available
-      raw: test -e /usr/bin/python || apt install -y --allow-unauthenticated python-minimal
-
-    - name: Ensure python-apt is available
-      raw: test -d /usr/share/python-apt || apt install -y --allow-unauthenticated python-apt
-
-    - name: Add gitlab deb source
-      raw: curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | bash
-
-    - name: Upgrade
-      raw: apt-get -y --allow-unauthenticated upgrade
+    - name: Upgrade debian
+      apt:
+        update_cache: true
+        upgrade: true
 
 - hosts: gl
   remote_user: root
+
   vars:
       gitlab_redirect_http_to_https: "false"
       gitlab_external_url: "http://{{ domain_name }}/"
+
   roles:
           - { role: geerlingguy.gitlab }
