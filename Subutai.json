@@ -1,9 +1,9 @@
 {
     "name": "${environmentName}",
     "description": "GitLab",
-    "version": "1.0.0",
-    "author": "https://github.com/marcoarthur",
-    "ssh-key": "mprado", 
+    "version": "1.0.2",
+    "author": "https://github.com/lbthomsen",
+    "ssh-key": "lth",
     "containers": [
         {
             "hostname": "${webContainerName}",
@@ -22,8 +22,7 @@
     ],
     "peer-criteria": [
         {
-            "name": "HTTP-GROUP",
-            "max-price": ""
+            "name": "HTTP-GROUP"
         }
     ],
     "ansible-configuration": {
@@ -33,7 +32,8 @@
             {
                 "key": "domain_name",
                 "value": "${domainName}"
-            }        ],
+            }
+        ],
         "groups": [
             {
                 "name": "gl",
