@@ -18,7 +18,7 @@
 
   vars:
       gitlab_redirect_http_to_https: "false"
-      gitlab_external_url: "https://{{ domain_name }}/"
+      gitlab_external_url: "http://{{ domain_name }}/"
 
   roles:
           - { role: geerlingguy.gitlab }
