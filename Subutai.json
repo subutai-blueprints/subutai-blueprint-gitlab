@@ -16,7 +16,7 @@
                     "domain": "${domainName}",
                     "internal-port": "443",
                     "external-port": "443",
-                    "ssl_backend": true
+                    "ssl_backend": "true"
                 }
             ]
         }
