@@ -1,7 +1,7 @@
 {
     "name": "${environmentName}",
     "description": "GitLab",
-    "version": "1.0.2",
+    "version": "2.0.4",
     "author": "https://github.com/lbthomsen",
     "ssh-key": "lth",
     "containers": [
@@ -12,10 +12,11 @@
             "size": "${containerSize}",
             "port-mapping": [
                 {
-                    "protocol": "http",
+                    "protocol": "https",
                     "domain": "${domainName}",
-                    "internal-port": "80",
-                    "external-port": "80"
+                    "internal-port": "443",
+                    "external-port": "443",
+                    "ssl_backend": "true"
                 }
             ]
         }
@@ -32,6 +33,10 @@
             {
                 "key": "domain_name",
                 "value": "${domainName}"
+            }, 
+            {
+                "key": "ssh_port", 
+                "value": "${sshPort}"
             }
         ],
         "groups": [
@@ -67,6 +72,11 @@
             "type": "enum",
             "default": "MEDIUM",
             "validation": "MEDIUM,LARGE,HUGE"
+        }, 
+        "sshPort": {
+            "description": "SSH Port (1000 - 65535)", 
+            "type": "number", 
+            "default": "13000"
         }
     }
 }
