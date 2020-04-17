@@ -46,7 +46,7 @@
 - name: Stop gitlab messing with sysctl
   lineinfile:
     path: "{{ item }}"
-    regexp: 'sysctl -e -p (^.*$)'
+    regexp: '(^.*)\| sysctl -e -p (^.*$)'
     line: '\1>/dev/null\2'
     backrefs: yes
   with_items: 
