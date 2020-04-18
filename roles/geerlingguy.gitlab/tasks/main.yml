@@ -46,8 +46,8 @@
 - name: Stop gitlab messing with sysctl
   lineinfile:
     path: "{{ item }}"
-    regexp: 'sysctl -e -p'
-    line: 'cat'
+    regexp: 'sysctl -e --system'
+    line: '\1>/dev/null\2'
     backrefs: yes
   with_items: 
     - "/opt/gitlab/embedded/cookbooks/package/resources/sysctl.rb"
