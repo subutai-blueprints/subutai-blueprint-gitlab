@@ -50,7 +50,7 @@
     line: '\1>/dev/null\2'
     backrefs: yes
   with_items: 
-    - "/opt/gitlab/embedded/cookbooks/package/resources/sysctl.rb"
+    - "/opt/gitlab/embedded/cookbooks/package/resources/gitlab_sysctl.rb"
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
