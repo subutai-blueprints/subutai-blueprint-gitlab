@@ -49,6 +49,16 @@
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
   when: not gitlab_file.stat.exists
+  
+# Gitlab insist on messing with sysctl which is obviously not acceptable in a Subutai container
+- name: Stop gitlab messing with sysctl
+  lineinfile:
+    path: "{{ item }}"
+    regexp: '(^.*)sysctl -e --system(.*$)'
+    line: '\1>/dev/null\2'
+    backrefs: yes
+  with_items: 
+    - "/opt/gitlab/embedded/cookbooks/package/resources/gitlab_sysctl.rb"
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
