@@ -12,57 +12,51 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package: name={{ item }} state=present
-  with_items:
-    - openssh-server
-    - postfix
-    - curl
-    - openssl
-    - tzdata
+  package:
+    name:
+      - openssh-server
+      - postfix
+      - curl
+      - openssl
+      - tzdata
+    state: present
+
+- name: Install GitLab dependencies (Debian).
+  apt:
+    name: gnupg2
+    state: present
+  when: ansible_os_family == 'Debian'
 
 - name: Download GitLab repository installation script.
   get_url:
     url: "{{ gitlab_repository_installation_script_url }}"
     dest: /tmp/gitlab_install_repository.sh
     validate_certs: "{{ gitlab_download_validate_certs }}"
-  when: (gitlab_file.stat.exists == false)
+  when: not gitlab_file.stat.exists
 
-- name: Install GitLab repository
+- name: Install GitLab repository.
   command: bash /tmp/gitlab_install_repository.sh
-  when: (gitlab_file.stat.exists == false)
+  register: output
+  when: not gitlab_file.stat.exists
 
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
-  when: gitlab_version != ''
+  when: gitlab_version | default(false)
 
 - name: Install GitLab
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
-  when: (gitlab_file.stat.exists == false)
-
-# Gitlab insist on messing with sysctl which is obviously not acceptable in a Subutai container
-- name: Stop gitlab messing with sysctl
-  lineinfile:
-    path: "{{ item }}"
-    regexp: '(^.*)sysctl -e --system(.*$)'
-    line: '\1>/dev/null\2'
-    backrefs: yes
-  with_items: 
-    - "/opt/gitlab/embedded/cookbooks/package/resources/gitlab_sysctl.rb"
+  when: not gitlab_file.stat.exists
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
-# tries more than once to check stderr is empty
 - name: Reconfigure GitLab (first run).
-  register: result
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
-  until: result.stderr == ""
-  retries: 3
-  delay: 2
+  failed_when: false
 
 - name: Create GitLab SSL configuration folder.
   file:
@@ -75,7 +69,8 @@
 
 - name: Create self-signed certificate.
   command: >
-    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
+    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}"
+    -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
     creates={{ gitlab_ssl_certificate }}
   when: gitlab_create_self_signed_cert
 
