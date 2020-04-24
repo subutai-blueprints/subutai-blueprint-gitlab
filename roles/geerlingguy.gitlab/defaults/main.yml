@@ -3,7 +3,7 @@
 gitlab_external_url: "https://gitlab/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
-gitlab_version: "11.6.0-ce.0"
+gitlab_version: "12.9.3-ce.0"
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
 
