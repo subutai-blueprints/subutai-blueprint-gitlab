@@ -55,7 +55,7 @@
   lineinfile:
     path: "{{ item }}"
     regexp: '(^.*)sysctl -e -p(.*$)'
-    line: '\1>/dev/null\2'
+    line: '\1cat\2'
     backrefs: yes
   with_items: 
     - "/opt/gitlab/embedded/cookbooks/package/resources/gitlab_sysctl.rb"
