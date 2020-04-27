@@ -35,7 +35,7 @@ The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition)
 
     gitlab_version: ''
 
-If you'd like to install a specific version, set the version here (e.g. `10.0.6-ce.0` for Debian/Ubuntu, or `10.0.6-ce.0.el7` for RedHat/CentOS).
+If you'd like to install a specific version, set the version here (e.g. `11.4.0-ce.0` for Debian/Ubuntu, or `11.4.0-ce.0.el7` for RedHat/CentOS).
 
     gitlab_config_template: "gitlab.rb.j2"
 
@@ -43,9 +43,10 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
 
   - Create a `templates` directory at the same level as your playbook.
   - Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
-  - Set the variable like: `gitlab_gitlabrb_template: mygitlab.rb.j2` (with the name of your custom template).
+  - Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
 
-    # SSL Configuration.
+### SSL Configuration.
+
     gitlab_redirect_http_to_https: "true"
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
     gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
@@ -78,7 +79,7 @@ Gitlab timezone.
 
 How long to keep local backups (useful if you don't want backups to fill up your drive!).
 
-    gitlab_download_validate_certs: yes
+    gitlab_download_validate_certs: true
 
 Controls whether to validate certificates when downloading the GitLab installation repository install script.
 
@@ -118,6 +119,10 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
     gitlab_nginx_ssl_client_certificate: ""
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
+
+    gitlab_default_theme: 2
+
+GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
 ## Dependencies
 
